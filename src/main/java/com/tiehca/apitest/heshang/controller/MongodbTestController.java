@@ -4,10 +4,7 @@ package com.tiehca.apitest.heshang.controller;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,5 +35,11 @@ public class MongodbTestController {
         testMap.putIfAbsent("1", test);
         testMap.putIfAbsent("2",stopWatch);
         return testMap;
+    }
+
+    @GetMapping("test03")
+    Object test03(@RequestParam String id) {
+        mongoTemplate.remove(new Query(), "9988776655");
+        return null;
     }
 }
