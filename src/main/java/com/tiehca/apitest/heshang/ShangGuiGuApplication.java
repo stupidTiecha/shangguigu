@@ -9,6 +9,7 @@ public class ShangGuiGuApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShangGuiGuApplication.class, args);
+
     }
 
 }
