@@ -6,7 +6,10 @@ import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("user")
+/**
+ * @author chen9
+ */
+@RestController("userController")
 public class UserController {
 
     private final UserService userService;
@@ -44,6 +47,7 @@ public class UserController {
         return  null;
     }
 
+    @PostMapping()
     BaseResp deleteUser (@RequestBody User user){
         return  null;
 

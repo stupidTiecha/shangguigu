@@ -2,6 +2,9 @@ package com.tiehca.apitest.heshang.bean.Do;
 
 import java.util.List;
 
+/**
+ * @author chen9
+ */
 public class Product {
 
     private String categoryId;

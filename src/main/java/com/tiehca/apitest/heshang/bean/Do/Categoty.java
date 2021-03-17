@@ -1,5 +1,8 @@
 package com.tiehca.apitest.heshang.bean.Do;
 
+/**
+ * @author chen9
+ */
 public class Categoty {
 
     private String name;

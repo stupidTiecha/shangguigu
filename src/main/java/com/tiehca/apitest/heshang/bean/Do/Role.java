@@ -3,6 +3,9 @@ package com.tiehca.apitest.heshang.bean.Do;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author chen9
+ */
 public class Role {
 
     private String name;

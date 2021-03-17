@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * @author chen9
+ */
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
