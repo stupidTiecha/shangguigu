@@ -59,7 +59,8 @@ public class MongodbTestController {
     Object test03(@RequestParam String id) {
         User user = new User();
         user.setUsername("测试");
-        mongoTemplate.remove(new Query().addCriteria(Criteria.byExample(user)),User.class);
+//        mongoTemplate.remove(new Query().addCriteria(Criteria.byExample(user)),User.class);
+        mongoTemplate.remove(new Query(),User.class);
 //        mongoTemplate.remove(user);
         return BaseResp.success();
     }

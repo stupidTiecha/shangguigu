@@ -1,9 +1,11 @@
 package com.tiehca.apitest.heshang.service.impl;
 
+import com.tiehca.apitest.heshang.Dao.UserDao;
 import com.tiehca.apitest.heshang.bean.Do.User;
 import com.tiehca.apitest.heshang.service.UserService;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -12,21 +14,27 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-    private final MongoTemplate mongoTemplate;
+    private final UserDao userDao;
 
-    public UserServiceImpl(MongoTemplate mongoTemplate) {
-        this.mongoTemplate = mongoTemplate;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
+
 
     @Override
     public User login(User user) {
 
-        return null;
+        List<User> users = userDao.findByExample(user);
+        if (users.size() == 1) {
+            return users.get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public User addUser(User user) {
-
-        return null;
+        User add = userDao.add(user);
+        return add;
     }
 }

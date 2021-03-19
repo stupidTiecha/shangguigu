@@ -18,12 +18,11 @@ import java.util.List;
 /**
  * @author chen9
  */
-@Component("baseDao")
-public abstract class BaseDao<T> {
+public class BaseDao<T> {
 
     private final MongoTemplate mongoTemplate;
 
-    protected BaseDao(MongoTemplate mongoTemplate) {
+     BaseDao(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -33,7 +32,7 @@ public abstract class BaseDao<T> {
      * @param clazz
      * @return
      */
-    T findById(String id, Class<T> clazz) {
+    public T findById(String id, Class<T> clazz) {
       return  mongoTemplate.findById(id,clazz);
     }
 
@@ -42,7 +41,7 @@ public abstract class BaseDao<T> {
      * @param example
      * @return
      */
-    List<T> findByExample(T example) {
+    public List<T> findByExample(T example) {
         Class<T> clazz = (Class<T>) example.getClass();
         return mongoTemplate.find(new Query().addCriteria(Criteria.byExample(example)),clazz);
     }
@@ -53,7 +52,7 @@ public abstract class BaseDao<T> {
      * @param clazz
      * @return
      */
-    DeleteResult deleteById(String id, Class<T> clazz) {
+    public DeleteResult deleteById(String id, Class<T> clazz) {
        return mongoTemplate.remove(new Query().addCriteria(Criteria.where("_id").is(id)),clazz);
     }
 
@@ -64,12 +63,23 @@ public abstract class BaseDao<T> {
      * @param id    待更新对象的id
      * @return  更新后的对象
      */
-    T update(T newObj, String id) {
+    public T update(T newObj, String id) {
         Class<T> clazz = (Class<T>) newObj.getClass();
         Document document = new Document();
         document.putAll(JSONObject.parseObject(JSON.toJSONString(newObj)));
         T updated = mongoTemplate.findAndModify(Query.query(Criteria.where("_id").is(id)), Update.fromDocument(document), FindAndModifyOptions.options().returnNew(true), clazz);
 
         return updated;
+    }
+
+    /**
+     * 插入对象数据
+     * @param obj
+     * @return
+     */
+    public T add(T obj) {
+        T insert = mongoTemplate.insert(obj);
+
+        return insert;
     }
 }

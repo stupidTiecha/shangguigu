@@ -15,7 +15,7 @@ public class User {
 
     @Id
     @JsonProperty("_id")
-    @JsonIgnore
+    @JSONField(serialize = false)
     private String userId;
 
     private String username;

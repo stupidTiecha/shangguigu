@@ -25,7 +25,7 @@ public class UserController {
 
         if (login != null) {
 
-            return BaseResp.success(user);
+            return BaseResp.success(login);
         }
         return BaseResp.failed("用户名或密码不存在");
     }
