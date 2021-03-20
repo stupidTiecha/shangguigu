@@ -1,11 +1,14 @@
 package com.tiehca.apitest.heshang.bean.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public class BaseResp {
 
     private Integer status;
 
     private Object data;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String msg;
 
     private BaseResp() {

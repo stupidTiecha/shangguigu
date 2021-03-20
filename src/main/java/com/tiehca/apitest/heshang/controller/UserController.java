@@ -1,6 +1,7 @@
 package com.tiehca.apitest.heshang.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.User;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.service.UserService;
@@ -50,6 +51,12 @@ public class UserController {
         }
 
         return BaseResp.failed("更新用户信息失败");
+    }
+
+    @GetMapping("manage/user/list")
+    BaseResp getUserList ( ) {
+        JSONObject result = userService.getUserList();
+        return BaseResp.success(result);
     }
 
     @PostMapping()

@@ -1,5 +1,6 @@
 package com.tiehca.apitest.heshang.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.User;
 
 /**
@@ -27,4 +28,11 @@ public interface UserService {
      * @return
      */
     User updateUser(User user);
+
+    /**
+     * 获取所有用户列表
+     * @return
+     */
+    JSONObject getUserList();
+
 }

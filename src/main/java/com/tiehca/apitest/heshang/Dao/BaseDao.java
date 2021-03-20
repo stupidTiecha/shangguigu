@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.core.query.UpdateDefinition;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +46,34 @@ public class BaseDao<T> {
     public List<T> findByExample(T example) {
         Class<T> clazz = (Class<T>) example.getClass();
         return mongoTemplate.find(new Query().addCriteria(Criteria.byExample(example)),clazz);
+    }
+
+    /**
+     * 通过对象信息进行条件查询
+     * @param example
+     * @param exculedValues 需要进行排除的值
+     * @return
+     */
+    public List<T> findByExample(T example, JSONObject exculedValues) {
+        Class<T> clazz = (Class<T>) example.getClass();
+        Criteria temp = Criteria.byExample(example);
+        Criteria criteria = Criteria.byExample(example);
+        List<Criteria> criteriaList = new ArrayList<>();
+        exculedValues.forEach((k,v) -> {
+            if(v instanceof  List) {
+                ((List) v).forEach( t -> {
+                    Criteria ne = temp.where(k).ne(t);
+                    criteriaList.add(ne);
+                });
+            } else {
+                Criteria ne = temp.where(k).ne(v);
+                criteriaList.add(ne);
+            }
+        });
+
+        criteria.andOperator( criteriaList.toArray(new Criteria[criteriaList.size()]));
+
+        return mongoTemplate.find(new Query().addCriteria(criteria),clazz);
     }
 
     /**
