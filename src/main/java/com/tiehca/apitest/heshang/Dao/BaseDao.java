@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * @author chen9
  */
+@SuppressWarnings("all")
 public class BaseDao<T> {
 
     private final MongoTemplate mongoTemplate;

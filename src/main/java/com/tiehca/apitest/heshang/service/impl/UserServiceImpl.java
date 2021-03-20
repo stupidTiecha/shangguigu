@@ -34,7 +34,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        User add = userDao.add(user);
-        return add;
+        List<User> userList = userDao.findByExample(user);
+        if (userList.size() == 0) {
+            User add = userDao.add(user);
+            return add;
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public User updateUser(User user) {
+
+        User update = userDao.update(user, user.getUserId());
+
+        if (update != null){
+            return update;
+        }else {
+            return null;
+        }
     }
 }

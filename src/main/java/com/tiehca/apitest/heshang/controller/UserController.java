@@ -36,7 +36,7 @@ public class UserController {
         User addUser = userService.addUser(user);
 
         if (addUser != null) {
-            return  BaseResp.success(user);
+            return  BaseResp.success(addUser);
         }
 
         return BaseResp.failed("此用户已存在");
@@ -44,7 +44,12 @@ public class UserController {
 
     @PostMapping("manage/user/update")
     BaseResp updateUser (@RequestBody User user) {
-        return  null;
+        User updatedUser = userService.updateUser(user);
+        if (updatedUser != null) {
+            return  BaseResp.success(updatedUser);
+        }
+
+        return BaseResp.failed("更新用户信息失败");
     }
 
     @PostMapping()

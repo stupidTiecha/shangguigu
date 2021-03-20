@@ -1,17 +1,14 @@
 package com.tiehca.apitest.heshang.Dao;
 
-import com.tiehca.apitest.heshang.bean.Do.User;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * @author chen9
+ * @author chen
  */
 @Component
-public class UserDao extends BaseDao<User>{
-
-
-    UserDao(MongoTemplate mongoTemplate) {
+public class ProductDao extends BaseDao<ProductDao> {
+    ProductDao(MongoTemplate mongoTemplate) {
         super(mongoTemplate);
     }
 }
