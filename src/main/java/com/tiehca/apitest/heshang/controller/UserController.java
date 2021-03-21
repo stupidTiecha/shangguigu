@@ -7,6 +7,8 @@ import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 /**
  * @author chen9
  */
@@ -33,6 +35,8 @@ public class UserController {
 
     @PostMapping("manage/user/add")
     BaseResp addUser (@RequestBody User user) {
+
+        user.setCreateTime(new Date());
 
         User addUser = userService.addUser(user);
 

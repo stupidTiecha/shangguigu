@@ -13,7 +13,7 @@ public class Category {
     @JsonProperty("_id")
     @JSONField(serialize = false)
     private String categoryId;
-
+    @JsonProperty("categoryName")
     private String name;
 
     private String parentId;

@@ -3,9 +3,9 @@ package com.tiehca.apitest.heshang.Dao;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mongodb.client.result.DeleteResult;
+import com.tiehca.apitest.heshang.bean.Do.Product;
+import com.tiehca.apitest.heshang.bean.dto.Page;
 import org.bson.Document;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -63,13 +63,14 @@ public class BaseDao<T> {
         Criteria criteria = Criteria.byExample(example);
         List<Criteria> criteriaList = new ArrayList<>();
         exculedValues.forEach((k, v) -> {
-            Criteria temp = new Criteria();
             if (v instanceof List) {
                 ((List) v).forEach(t -> {
+                    Criteria temp = new Criteria();
                     Criteria ne = temp.where(k).ne(t);
                     criteriaList.add(ne);
                 });
             } else {
+                Criteria temp = new Criteria();
                 Criteria ne = temp.where(k).ne(v);
                 criteriaList.add(ne);
             }
@@ -88,15 +89,16 @@ public class BaseDao<T> {
      * @param example
      * @return
      */
-    public List<T> findByPage (Integer pageNum, Integer pageSize, Class<T> clazz) {
+    public Page<T> findByPage (Integer pageNum, Integer pageSize, Class<T> clazz) {
 
 
         List<T> result = mongoTemplate.find(new Query()
                 .with(Sort.by(Sort.DEFAULT_DIRECTION.DESC, "_id"))
                 .skip((pageNum - 1) * pageSize)
                 .limit(pageSize), clazz);
+        long count = mongoTemplate.count(new Query(),clazz);
 
-        return result;
+        return new Page(count, pageNum,pageSize,result);
     }
 
     /**
@@ -109,20 +111,24 @@ public class BaseDao<T> {
      * @param orderBy
      * @return
      */
-    public List<T> findByPage (Integer pageNum, Integer pageSize, Class<T> clazz, JSONObject searchConfig, String... orderBy) {
+    public Page<T> findByPage (Integer pageNum, Integer pageSize, Class<T> clazz, JSONObject searchConfig, String... orderBy) {
+
+        if (searchConfig == null) {
+            return findByPage(pageNum, pageSize, clazz);
+        }
 
         Criteria criteria = new Criteria();
         List<Criteria> criteriaList = new ArrayList<>();
         searchConfig.forEach((k,v) -> {
-            Criteria temp = new Criteria();
+
             if (v instanceof List) {
                 ((List<?>) v).forEach( t -> {
-                    temp.where(k).regex((Pattern) t);
-                    criteriaList.add(temp);
+                    Criteria temp = new Criteria();
+                    criteriaList.add( temp.where(k).regex((Pattern) t));
                 });
             } else {
-                temp.where(k).regex((Pattern) v);
-                criteriaList.add(temp);
+                Criteria temp = new Criteria();
+                criteriaList.add(temp.where(k).regex((Pattern) v));
             }
         });
         criteria.andOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
@@ -132,7 +138,9 @@ public class BaseDao<T> {
                 .skip((pageNum - 1) * pageSize)
                 .limit(pageSize), clazz);
 
-        return result;
+        long count = mongoTemplate.count(Query.query(criteria),clazz);
+        Page page = new Page(count, pageNum, pageSize, result);
+        return page;
     }
 
     /**
@@ -142,7 +150,7 @@ public class BaseDao<T> {
      * @param example
      * @return
      */
-    public  List<T> findByPage (Integer pageNum, Integer pageSize, T example) {
+    public  Page<T> findByPage (Integer pageNum, Integer pageSize, T example) {
         return findByPage(pageNum, pageSize,example, "_id");
     }
 
@@ -154,15 +162,15 @@ public class BaseDao<T> {
      * @param orderBy
      * @return
      */
-    public  List<T> findByPage (Integer pageNum, Integer pageSize, T example, String... orderBy) {
+    public  Page<T> findByPage (Integer pageNum, Integer pageSize, T example, String... orderBy) {
         Class<T> clazz = (Class<T>) example.getClass();
 
         List<T> result = mongoTemplate.find(Query.query(Criteria.byExample(example))
                 .with(Sort.by(Sort.DEFAULT_DIRECTION.DESC, orderBy))
                 .skip((pageNum - 1) * pageSize)
                 .limit(pageSize), clazz);
-
-        return result;
+        long count = mongoTemplate.count(Query.query(Criteria.byExample(example)), clazz);
+        return new Page(count, pageNum,pageSize,result);
     }
 
     /**
@@ -186,10 +194,14 @@ public class BaseDao<T> {
     public T update(T newObj, String id) {
         Class<T> clazz = (Class<T>) newObj.getClass();
         Document document = new Document();
-        document.putAll(JSONObject.parseObject(JSON.toJSONString(newObj)));
+        JSONObject object = JSONObject.parseObject(JSON.toJSONString(newObj));
+        document.putAll(object);
+        Document doc = new Document();
+        doc.put("$set", document);
+        Update update = Update.fromDocument(doc);
         T updated = mongoTemplate.findAndModify(
                 Query.query(Criteria.where("_id").is(id)),
-                Update.fromDocument(document),
+                update,
                 FindAndModifyOptions.options().returnNew(true),
                 clazz);
 
@@ -207,4 +219,5 @@ public class BaseDao<T> {
 
         return insert;
     }
+
 }

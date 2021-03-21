@@ -6,6 +6,7 @@ public class BaseResp {
 
     private Integer status;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Object data;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

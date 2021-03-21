@@ -2,6 +2,7 @@ package com.tiehca.apitest.heshang.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.Product;
+import com.tiehca.apitest.heshang.bean.dto.Page;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ProductService {
      * @param pageSize
      * @return
      */
-    List<Product> getProductList(Integer pageNum, Integer pageSize);
+    Page<Product> getProductList(Integer pageNum, Integer pageSize);
 
     /**
      * 搜索产品列表
@@ -27,7 +28,7 @@ public interface ProductService {
      * @param productDesc
      * @return
      */
-    List<Product> searchProduct(Integer pageNum, Integer pageSize, String productName, String productDesc);
+    Page<Product> searchProduct(Integer pageNum, Integer pageSize, String productName, String productDesc);
 
     /**
      * 添加商品

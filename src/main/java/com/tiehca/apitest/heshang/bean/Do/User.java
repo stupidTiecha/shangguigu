@@ -25,9 +25,11 @@ public class User {
     private String phone;
 
     private String email;
-
+    @JsonProperty("create_time")
+    @JSONField(name = "create_time")
     private Date createTime;
-
+    @JsonProperty("role_id")
+    @JSONField(name = "role_id")
     private String roleId;
 
     public String getUserId() {

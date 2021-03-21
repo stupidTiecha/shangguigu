@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,12 +25,9 @@ public class RoleController {
     @PostMapping("manage/role/add")
     BaseResp addRole (@RequestBody Role role) {
 
+        role.setCreateTime(new Date());
         Role add = roleService.addRole(role);
-        if (role != null) {
-            return BaseResp.success(add);
-        } else {
-            return BaseResp.failed("添加角色异常，请稍后尝试");
-        }
+        return BaseResp.success(add);
     }
 
     @GetMapping("manage/role/list")
@@ -40,6 +38,7 @@ public class RoleController {
 
     @PostMapping("manage/role/update")
     BaseResp updateRole (@RequestBody Role role) {
+        role.setAuthTime(new Date());
         Role update = roleService.updateRole(role);
         if (update != null) {
             return BaseResp.success(update);

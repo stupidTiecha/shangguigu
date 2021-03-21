@@ -3,6 +3,7 @@ package com.tiehca.apitest.heshang.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.Dao.ProductDao;
 import com.tiehca.apitest.heshang.bean.Do.Product;
+import com.tiehca.apitest.heshang.bean.dto.Page;
 import com.tiehca.apitest.heshang.service.ProductService;
 import org.springframework.stereotype.Service;
 
@@ -22,25 +23,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductList(Integer pageNum, Integer pageSize) {
+    public Page<Product> getProductList(Integer pageNum, Integer pageSize) {
 
         return productDao.findByPage(pageNum,pageSize, Product.class);
     }
 
     @Override
-    public List<Product> searchProduct(Integer pageNum, Integer pageSize, String productName, String productDesc) {
+    public Page<Product> searchProduct(Integer pageNum, Integer pageSize, String productName, String productDesc) {
         Pattern pattern;
         JSONObject searchConfig = new JSONObject();
         if (productName != null && !"".equals(productName.trim())) {
             pattern = Pattern.compile("^.*" + productName + ".*$", Pattern.CASE_INSENSITIVE);
             searchConfig.put("name", pattern);
-        } else {
+        } else if (productDesc != null && !"".equals(productDesc.trim())){
             pattern = Pattern.compile("^.*" + productDesc + ".*$", Pattern.CASE_INSENSITIVE);
             searchConfig.put("desc", pattern);
+        } else {
+            searchConfig = null;
         }
 
+        Page<Product> result = productDao.findByPage(pageNum, pageSize, Product.class, searchConfig, "_id");
 
-        return productDao.findByPage(pageNum, pageSize, Product.class,searchConfig);
+        return result;
 
     }
 

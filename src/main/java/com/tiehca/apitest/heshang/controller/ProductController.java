@@ -2,6 +2,7 @@ package com.tiehca.apitest.heshang.controller;
 
 import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
+import com.tiehca.apitest.heshang.bean.dto.Page;
 import com.tiehca.apitest.heshang.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +28,10 @@ public class ProductController {
     @GetMapping("manage/product/search")
     BaseResp searchProduct (@RequestParam("pageNum") Integer pageNum,
                             @RequestParam("pageSize") Integer pageSize,
-                            @RequestParam("productName") String productName,
-                            @RequestParam("productDesc") String productDesc
+                            @RequestParam(value = "productName", required = false) String productName,
+                            @RequestParam(value = "productDesc", required = false) String productDesc
                             ) {
-        List<Product> result = productService.searchProduct(pageNum, pageSize, productName, productDesc);
+        Page<Product> result = productService.searchProduct(pageNum, pageSize, productName, productDesc);
 
         return BaseResp.success(result);
     }
