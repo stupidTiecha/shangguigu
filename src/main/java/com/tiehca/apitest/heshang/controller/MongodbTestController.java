@@ -1,6 +1,9 @@
 package com.tiehca.apitest.heshang.controller;
 
 
+import com.tiehca.apitest.heshang.bean.Do.Category;
+import com.tiehca.apitest.heshang.bean.Do.Product;
+import com.tiehca.apitest.heshang.bean.Do.Role;
 import com.tiehca.apitest.heshang.bean.Do.User;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -55,13 +58,27 @@ public class MongodbTestController {
         return testMap;
     }
 
-    @GetMapping("test03")
-    Object test03(@RequestParam String id) {
-        User user = new User();
-        user.setUsername("测试");
-//        mongoTemplate.remove(new Query().addCriteria(Criteria.byExample(user)),User.class);
+    @GetMapping("clearUser")
+    Object test03() {
         mongoTemplate.remove(new Query(),User.class);
-//        mongoTemplate.remove(user);
+        return BaseResp.success();
+    }
+
+    @GetMapping("clearRole")
+    Object test04() {
+        mongoTemplate.remove(new Query(), Role.class);
+        return BaseResp.success();
+    }
+
+    @GetMapping("clearProduct")
+    Object test05() {
+        mongoTemplate.remove(new Query(), Product.class);
+        return BaseResp.success();
+    }
+
+    @GetMapping("clearCategory")
+    Object test06() {
+        mongoTemplate.remove(new Query(), Category.class);
         return BaseResp.success();
     }
 }
