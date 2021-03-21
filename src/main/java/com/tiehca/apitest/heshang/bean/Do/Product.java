@@ -1,11 +1,20 @@
 package com.tiehca.apitest.heshang.bean.Do;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 /**
  * @author chen9
  */
 public class Product {
+
+    @Id
+    @JsonProperty("_id")
+    @JSONField(serialize = false)
+    private String productId;
 
     private String categoryId;
 
@@ -22,6 +31,14 @@ public class Product {
     private List<String> imgs;
 
     private String detail;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 
     public String getCategoryId() {
         return categoryId;

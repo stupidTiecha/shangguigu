@@ -1,6 +1,7 @@
 package com.tiehca.apitest.heshang.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mongodb.client.result.DeleteResult;
 import com.tiehca.apitest.heshang.Dao.RoleDao;
 import com.tiehca.apitest.heshang.Dao.UserDao;
 import com.tiehca.apitest.heshang.bean.Do.Role;
@@ -74,5 +75,13 @@ public class UserServiceImpl implements UserService {
         result.put("roles",roleDao.findByExample(new Role()));
 
         return result;
+    }
+
+    @Override
+    public boolean deleteUser(String userId) {
+
+        DeleteResult deleteResult = userDao.deleteById(userId, User.class);
+
+        return deleteResult.wasAcknowledged();
     }
 }

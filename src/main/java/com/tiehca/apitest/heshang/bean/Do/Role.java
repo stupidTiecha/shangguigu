@@ -1,5 +1,9 @@
 package com.tiehca.apitest.heshang.bean.Do;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,15 +12,31 @@ import java.util.List;
  */
 public class Role {
 
+    @Id
+    @JsonProperty("_id")
+    @JSONField(serialize = false)
+    private String roleId;
+
     private String name;
 
+    @JsonProperty("_id")
     private String authName;
 
-    private Integer authTime;
+    @JsonProperty("auth_time")
+    private Date authTime;
 
+    @JsonProperty("create_time")
     private Date createTime;
 
     private List<Object> menus;
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
 
     public String getName() {
         return name;
@@ -34,11 +54,11 @@ public class Role {
         this.authName = authName;
     }
 
-    public Integer getAuthTime() {
+    public Date getAuthTime() {
         return authTime;
     }
 
-    public void setAuthTime(Integer authTime) {
+    public void setAuthTime(Date authTime) {
         this.authTime = authTime;
     }
 

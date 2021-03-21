@@ -59,9 +59,15 @@ public class UserController {
         return BaseResp.success(result);
     }
 
-    @PostMapping()
+    @PostMapping("manage/user/delete")
     BaseResp deleteUser (@RequestBody User user){
-        return  null;
+
+        boolean status = userService.deleteUser(user.getUserId());
+        if (status) {
+            return BaseResp.success();
+        } else {
+            return BaseResp.failed();
+        }
 
     }
 }

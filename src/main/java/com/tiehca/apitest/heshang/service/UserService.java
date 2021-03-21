@@ -35,4 +35,10 @@ public interface UserService {
      */
     JSONObject getUserList();
 
+    /**
+     * 通过用户id删除用户
+     * @param userId
+     * @return
+     */
+    boolean deleteUser(String userId);
 }
