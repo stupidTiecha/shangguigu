@@ -3,6 +3,7 @@ package com.tiehca.apitest.heshang.service;
 import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.dto.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -50,4 +51,11 @@ public interface ProductService {
      * @return
      */
     boolean updateStatus(Product product);
+
+    /**
+     * 上传图片
+     * @param files
+     * @return
+     */
+    JSONObject uploadImages(MultipartFile[] files);
 }

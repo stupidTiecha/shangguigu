@@ -6,8 +6,15 @@ import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.dto.Page;
 import com.tiehca.apitest.heshang.service.ProductService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 /**
@@ -15,6 +22,8 @@ import java.util.regex.Pattern;
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
+
+    private final Path FILE_PATH = Paths.get(System.getProperty("user.dir"));
 
     private final ProductDao productDao;
 
@@ -66,5 +75,30 @@ public class ProductServiceImpl implements ProductService {
 
         Product update = productDao.update(product, product.getProductId());
         return update != null;
+    }
+
+    @Override
+    //TODO
+    public JSONObject uploadImages(MultipartFile[] files) {
+        try {
+           File path = new File(ResourceUtils.getURL("classpath:").getPath());
+            Arrays.stream(files).forEach(file -> {
+                File temp = new File(path.getAbsolutePath(), "static/upload/images");
+                if (!temp.exists()) {
+                    boolean mkdirs = temp.mkdirs();
+                }
+                try {
+                    String filePath = temp.getPath() + System.currentTimeMillis() + file.getOriginalFilename();
+                    File upload = new File(filePath);
+                    file.transferTo(upload);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

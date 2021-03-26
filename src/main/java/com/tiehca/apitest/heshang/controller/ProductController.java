@@ -5,6 +5,7 @@ import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.bean.dto.Page;
 import com.tiehca.apitest.heshang.service.ProductService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -74,8 +75,10 @@ public class ProductController {
      * @return
      */
     @PostMapping("manage/img/upload")
-    BaseResp uploadImage() {
-        return BaseResp.success();
+    BaseResp uploadImage(@RequestParam("images") MultipartFile...  files) {
+
+        productService.uploadImages(files);
+        return BaseResp.success("手术很成功");
     }
 
     /**
