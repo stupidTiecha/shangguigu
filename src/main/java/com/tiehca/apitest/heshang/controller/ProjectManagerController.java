@@ -6,25 +6,29 @@ import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.Do.Role;
 import com.tiehca.apitest.heshang.bean.Do.User;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
+import com.tiehca.apitest.heshang.common.util.PathUtil;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.locks.Lock;
 
 /**
  * @author chen9
  */
 @RestController("api")
 @RequestMapping("api")
-public class MongodbTestController {
+public class ProjectManagerController {
 
     private final MongoTemplate mongoTemplate;
 
-    public MongodbTestController(MongoTemplate mongoTemplate) {
+    public ProjectManagerController(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
@@ -59,26 +63,38 @@ public class MongodbTestController {
     }
 
     @GetMapping("clearUser")
-    Object test03() {
+    Object clearUser() {
         mongoTemplate.remove(new Query(),User.class);
         return BaseResp.success();
     }
 
     @GetMapping("clearRole")
-    Object test04() {
+    Object clearRole() {
         mongoTemplate.remove(new Query(), Role.class);
         return BaseResp.success();
     }
 
     @GetMapping("clearProduct")
-    Object test05() {
+    Object clearProduct() {
         mongoTemplate.remove(new Query(), Product.class);
         return BaseResp.success();
     }
 
     @GetMapping("clearCategory")
-    Object test06() {
+    Object clearCategory() {
         mongoTemplate.remove(new Query(), Category.class);
+        return BaseResp.success();
+    }
+
+    @GetMapping("clearImages")
+    Object clearImages() {
+        File uploadPath = PathUtil.getUploadPath();
+        File[] files = uploadPath.listFiles();
+        Arrays.stream(files).parallel()
+                .forEach( file ->  {
+                    file.delete();
+                });
+
         return BaseResp.success();
     }
 }

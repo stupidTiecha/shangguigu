@@ -4,17 +4,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.Dao.ProductDao;
 import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.dto.Page;
+import com.tiehca.apitest.heshang.common.config.ServiceConfig;
+import com.tiehca.apitest.heshang.common.util.PathUtil;
+import com.tiehca.apitest.heshang.common.util.SequenceUtil;
 import com.tiehca.apitest.heshang.service.ProductService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -23,11 +26,15 @@ import java.util.regex.Pattern;
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 
+    private static final String IMAGE_PREFIX = "image-";
     private final Path FILE_PATH = Paths.get(System.getProperty("user.dir"));
+
+    private final ServiceConfig config;
 
     private final ProductDao productDao;
 
-    public ProductServiceImpl(ProductDao productDao) {
+    public ProductServiceImpl(ServiceConfig config, ProductDao productDao) {
+        this.config = config;
         this.productDao = productDao;
     }
 
@@ -78,27 +85,42 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    //TODO
-    public JSONObject uploadImages(MultipartFile[] files) {
-        try {
-           File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            Arrays.stream(files).forEach(file -> {
-                File temp = new File(path.getAbsolutePath(), "static/upload/images");
-                if (!temp.exists()) {
-                    boolean mkdirs = temp.mkdirs();
-                }
+    public List<JSONObject> uploadImages(MultipartFile[] files) {
+        List<JSONObject> result = new ArrayList<>();
+        File uploadPath = PathUtil.getUploadPath();
+        Arrays.stream(files).parallel().forEach(file -> {
+
                 try {
-                    String filePath = temp.getPath() + System.currentTimeMillis() + file.getOriginalFilename();
+                    JSONObject temp = new JSONObject();
+                    String oName = file.getOriginalFilename();
+                    String fileType = oName.substring(oName.lastIndexOf("."));
+                    String fileName =  IMAGE_PREFIX + System.currentTimeMillis() + SequenceUtil.getSequenceString() + fileType;
+                    String filePath = uploadPath.getPath() + "/" + fileName;
                     File upload = new File(filePath);
                     file.transferTo(upload);
+                    temp.put("name",fileName);
+                    temp.put("url", config.getImageUrlPrefix() + fileName);
+                    result.add(temp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        return null;
+
+        return result;
+    }
+
+    @Override
+    public void deleteImage(String imageName) {
+
+        File uploadPath = PathUtil.getUploadPath();
+
+        File deleteFile = new File(uploadPath.getPath() + "/" + imageName);
+
+        if (deleteFile.exists()) {
+            if (!deleteFile.delete()){
+                throw new RuntimeException("删除图片失败");
+            }
+        }
     }
 }

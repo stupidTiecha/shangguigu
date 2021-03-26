@@ -1,5 +1,6 @@
 package com.tiehca.apitest.heshang.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.Product;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.bean.dto.Page;
@@ -71,22 +72,25 @@ public class ProductController {
     }
 
     /**
-     * TODO
+     *
      * @return
      */
     @PostMapping("manage/img/upload")
     BaseResp uploadImage(@RequestParam("images") MultipartFile...  files) {
 
-        productService.uploadImages(files);
-        return BaseResp.success("手术很成功");
+        List<JSONObject> result = productService.uploadImages(files);
+
+        return BaseResp.success(result);
     }
 
     /**
-     * TODO
+     *
      * @return
      */
     @PostMapping("manage/img/delete")
-    BaseResp deleteImage() {
+    BaseResp deleteImage(@RequestBody JSONObject req) {
+        String imageName = req.getString("name");
+        productService.deleteImage(imageName);
         return BaseResp.success();
     }
 }

@@ -57,5 +57,11 @@ public interface ProductService {
      * @param files
      * @return
      */
-    JSONObject uploadImages(MultipartFile[] files);
+    List<JSONObject> uploadImages(MultipartFile[] files);
+
+    /**
+     * 删除图片
+     * @param imageName
+     */
+    void deleteImage(String imageName);
 }
