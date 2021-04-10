@@ -1,0 +1,669 @@
+{
+	"info": {
+		"_postman_id": "9b455266-9916-49a8-acf8-6eaa1972083f",
+		"name": "shangguigu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户",
+			"item": [
+				{
+					"name": "用户新增",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"测试1号\",\r\n    \"password\":\"95279527\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/user/add",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"user",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户登录",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin6\",\r\n    \"password\":\"95279527\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/login",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户更新",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"60574e3544ba4227b0cfa2ee\",\r\n    \"username\": \"admin6\",\r\n    \"password\": \"95279527\",\r\n    \"phone\": \"13712341234\",\r\n    \"email\": \"test@qq.com\",\r\n    \"role_id\":\"wqrfgvadfasfasfasfasf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/user/update",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取用户列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/user/list",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户删除",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"60574e3544ba4227b0cfa2ee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/user/delete",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "分类",
+			"item": [
+				{
+					"name": "获取分类列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/category/list?parentId=0",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"category",
+								"list"
+							],
+							"query": [
+								{
+									"key": "parentId",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加分类",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"parentId\":\"0\",\r\n    \"categoryName\":\"1级分类4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/category/add",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"category",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新分类",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\":\"605762b94425d2371ec49ac7\",\r\n    \"categoryName\":\"1级分类24\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/category/update",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"category",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据id获取分类",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/category/info?categoryId=605762b94425d2371ec49ac7",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"category",
+								"info"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "605762b94425d2371ec49ac7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "商品",
+			"item": [
+				{
+					"name": "获取商品列表(模糊查询)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/product/search?pageNum=1&pageSize=5&productName=打人",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"product",
+								"search"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "productName",
+									"value": "打人"
+								},
+								{
+									"key": "productDesc",
+									"value": "asd",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取商品列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/product/list?pageNum=1&pageSize=3",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"product",
+								"list"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加商品",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imgs\": [\r\n        \"image-1554638676149.jpg\",\r\n        \"image-1554638683746.jpg\"\r\n    ],\r\n    \"name\": \"联想 下234 23 Carbon\",\r\n    \"desc\": \"英特尔酷睿i5 14英寸轻薄笔记本电脑（i5-8250U 8G 256GSSD FHD）黑色\",\r\n    \"price\": 9999,\r\n    \"pCategoryId\": \"0\",\r\n    \"categoryId\": \"605762b94425d2371ec49ac7\",\r\n    \"detail\": \"<p style=\\\"text-align:start;\\\"><span style=\\\"color: rgb(102,102,102);background-color: rgb(255,255,255);font-size: 16px;font-family: Arial, \\\"microsoft yahei;\\\">联想ThinkPad X1 Carbon 2018（09CD）英特尔酷睿i5 14英寸轻薄笔记本电脑（i5-8250U 8G 256GSSD FHD）黑色</span></p>\\n<p><span style=\\\"color: rgb(228,57,60);background-color: rgb(255,255,255);font-size: 12px;font-family: tahoma, arial, \\\"Microsoft YaHei\\\", \\\"Hiragino Sans GB\\\", u5b8bu4f53, sans-serif;\\\">年度重量级新品，X390、T490全新登场 更加轻薄机身设计，全面的配置升级，让工作更便捷，让生活更轻松</span><a href=\\\"https://pro.jd.com/mall/active/2M4o7NTzHH6jEJXS7VbpbTAANQB9/index.html\\\" target=\\\"_blank\\\"><span style=\\\"color: rgb(94,105,173);background-color: rgb(255,255,255);font-size: 12px;font-family: tahoma, arial, \\\"Microsoft YaHei\\\", \\\"Hiragino Sans GB\\\", u5b8bu4f53, sans-serif;\\\">4月9日京东震撼首发，火爆预约</span></a>&nbsp;</p>\\n\",\r\n    \"__v\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/product/add",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"product",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新商品",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryId\": \"605762b94425d2371ec49ac7\",\r\n    \"pCategoryId\": \"0\",\r\n    \"name\": \"华硕-打人国度\",\r\n    \"price\": 9999,\r\n    \"desc\": \"英特尔酷睿i5 14英寸轻薄笔记本电脑（i5-8250U 8G 256GSSD FHD）黑色\",\r\n    \"status\": null,\r\n    \"imgs\": [\r\n        \"image-1554638676149.jpg\",\r\n        \"image-1554638683746.jpg\"\r\n    ],\r\n    \"detail\": \"<p style=\\\"text-align:start;\\\"><span style=\\\"color: rgb(102,102,102);background-color: rgb(255,255,255);font-size: 16px;font-family: Arial, \\\"microsoft yahei;\\\">联想ThinkPad X1 Carbon 2018（09CD）英特尔酷睿i5 14英寸轻薄笔记本电脑（i5-8250U 8G 256GSSD FHD）黑色</span></p>\\n<p><span style=\\\"color: rgb(228,57,60);background-color: rgb(255,255,255);font-size: 12px;font-family: tahoma, arial, \\\"Microsoft YaHei\\\", \\\"Hiragino Sans GB\\\", u5b8bu4f53, sans-serif;\\\">年度重量级新品，X390、T490全新登场 更加轻薄机身设计，全面的配置升级，让工作更便捷，让生活更轻松</span><a href=\\\"https://pro.jd.com/mall/active/2M4o7NTzHH6jEJXS7VbpbTAANQB9/index.html\\\" target=\\\"_blank\\\"><span style=\\\"color: rgb(94,105,173);background-color: rgb(255,255,255);font-size: 12px;font-family: tahoma, arial, \\\"Microsoft YaHei\\\", \\\"Hiragino Sans GB\\\", u5b8bu4f53, sans-serif;\\\">4月9日京东震撼首发，火爆预约</span></a>&nbsp;</p>\\n\",\r\n    \"_id\": \"605769eb51037d45e11ac0a8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/product/update",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"product",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "商品上架/下架",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": 0,\r\n    \"_id\": \"605769eb51037d45e11ac0a8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/product/updateStatus",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"product",
+								"updateStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "添加商品图片",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/E:/desktop/QQ截图20210410092701.png"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/E:/desktop/QQ截图20210410092712.png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/img/upload",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"img",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除商品图片",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"image-16180256400180001.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/img/delete",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"img",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色权限",
+			"item": [
+				{
+					"name": "添加角色",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"超级管理员2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/role/add",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"role",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取角色列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"超级管理员\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/role/list",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"role",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新角色权限",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"menus\": [\r\n        \"/role\",\r\n        \"/charts/bar\",\r\n        \"/home\",\r\n        \"/categoryweq\"\r\n    ],\r\n    \"_id\": \"60577a436f78ac75028fa91c\",\r\n    \"auth_time\": 1558679920395,\r\n    \"auth_name\": \"test007\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/manage/role/update",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"manage",
+								"role",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "清理",
+			"item": [
+				{
+					"name": "清空用户数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/api/clearUser",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"api",
+								"clearUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "清空分类数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/api/clearCategory",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"api",
+								"clearCategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "清空商品数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/api/clearProduct",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"api",
+								"clearProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "清空角色数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_ip}}:{{base_port}}{{base_path}}/api/clearRole",
+							"host": [
+								"{{base_ip}}"
+							],
+							"port": "{{base_port}}{{base_path}}",
+							"path": [
+								"api",
+								"clearRole"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
