@@ -1,12 +1,5 @@
 package com.tiehca.apitest.heshang.bean.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.domain.PageImpl;
-
-import java.io.Serializable;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**

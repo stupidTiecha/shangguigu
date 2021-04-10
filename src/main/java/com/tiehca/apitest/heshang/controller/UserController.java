@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.tiehca.apitest.heshang.bean.Do.User;
 import com.tiehca.apitest.heshang.bean.dto.BaseResp;
 import com.tiehca.apitest.heshang.service.UserService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 

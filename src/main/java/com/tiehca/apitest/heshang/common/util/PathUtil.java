@@ -1,7 +1,5 @@
 package com.tiehca.apitest.heshang.common.util;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
